@@ -2,16 +2,16 @@ package com.example.pr_23101_v1
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 
 class LogIn : AppCompatActivity() {
 
-    private lateinit var etUsername: TextInputEditText
-    private lateinit var etPassword: TextInputEditText
+    private lateinit var etUsername: EditText
+    private lateinit var etPassword: EditText
     private lateinit var btnAuthorize: MaterialButton
     private lateinit var btnRegister: TextView
     private lateinit var dbHelper: DBHelper
@@ -33,6 +33,19 @@ class LogIn : AppCompatActivity() {
 
         btnAuthorize.setOnClickListener {
             handleAuthorization()
+        }
+
+        // Password visibility toggle
+        val btnPasswordToggle = findViewById<android.widget.ImageButton>(R.id.btnPasswordToggle)
+        var isPasswordVisible = false
+        btnPasswordToggle.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible) {
+                etPassword.transformationMethod = android.text.method.HideReturnsTransformationMethod.getInstance()
+            } else {
+                etPassword.transformationMethod = android.text.method.PasswordTransformationMethod.getInstance()
+            }
+            etPassword.setSelection(etPassword.text.length)
         }
     }
 
