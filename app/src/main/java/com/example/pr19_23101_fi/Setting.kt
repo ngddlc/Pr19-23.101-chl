@@ -2,7 +2,9 @@ package com.example.pr19_23101_fi
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
@@ -57,7 +59,7 @@ class Setting : AppCompatActivity() {
             } else {
                 "Отключено отображение моего местороложения"
             }
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+            showCustomToast(text)
             sharedPrefs.edit().putBoolean("show_location", isChecked).apply()
         }
 
@@ -67,7 +69,7 @@ class Setting : AppCompatActivity() {
             } else {
                 "Отключены уведомления о новом запуске"
             }
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+            showCustomToast(text)
             sharedPrefs.edit().putBoolean("show_notify", isChecked).apply()
         }
 
@@ -77,7 +79,7 @@ class Setting : AppCompatActivity() {
             } else {
                 "Отключено отображение новостей"
             }
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+            showCustomToast(text)
             sharedPrefs.edit().putBoolean("show_news", isChecked).apply()
         }
     }
@@ -101,9 +103,28 @@ class Setting : AppCompatActivity() {
             apply()
         }
 
-        Toast.makeText(this, "Настройки сброшены", Toast.LENGTH_SHORT).show()
+        showCustomToast("Настройки сброшены")
 
         // Restore listeners
         setupListeners()
+    }
+
+    private fun showCustomToast(message: String) {
+        try {
+            val inflater = layoutInflater
+            val layout = inflater.inflate(R.layout.custom_toast, null)
+            
+            val tvToastMessage: TextView = layout.findViewById(R.id.tvToastMessage)
+            tvToastMessage.text = message
+            
+            val toast = Toast(applicationContext)
+            toast.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 120)
+            toast.duration = Toast.LENGTH_SHORT
+            toast.view = layout
+            toast.show()
+        } catch (e: Exception) {
+            // Fallback to standard Toast if inflation fails for any reason
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 }
