@@ -1,4 +1,4 @@
-package com.example.pr19_23101_fi;
+package com.example.pr_23101_v1;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.pr19_23101_fi", appContext.getPackageName());
+        assertEquals("com.example.pr_23101_v1", appContext.getPackageName());
     }
 }
