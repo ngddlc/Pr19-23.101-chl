@@ -37,9 +37,8 @@ class PersonalArea : AppCompatActivity() {
         btnSettings = findViewById(R.id.btnSettings)
         rvUsers = findViewById(R.id.rvUsers)
 
-        // Read username from intent
         val username = intent.getStringExtra("username") ?: "Андрей"
-        tvWelcome.text = "Привет, $username!"
+        tvWelcome.text = android.text.Html.fromHtml("Привет, <font color='#FF5630'>$username</font>!", android.text.Html.FROM_HTML_MODE_LEGACY)
 
         // Control buttons logic
         btnLogout.setOnClickListener {
@@ -84,12 +83,10 @@ class PersonalArea : AppCompatActivity() {
         val sharedPrefs = getSharedPreferences("AppSettings", MODE_PRIVATE)
         val showNews = sharedPrefs.getBoolean("show_news", true)
 
-        val tvNewsTitle = findViewById<TextView>(R.id.tvNewsTitle)
         val newsItem1 = findViewById<LinearLayout>(R.id.newsItem1)
         val newsItem2 = findViewById<LinearLayout>(R.id.newsItem2)
 
         val visibility = if (showNews) View.VISIBLE else View.GONE
-        tvNewsTitle.visibility = visibility
         newsItem1.visibility = visibility
         newsItem2.visibility = visibility
     }
